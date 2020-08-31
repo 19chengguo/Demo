@@ -139,6 +139,17 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
         return label
     }()
     
+    let cuurentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "00:00"
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    
     lazy var videoSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -182,11 +193,19 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
     
     func setUp(){
         self.addSubview(avplayerView)
+        self.addSubview(cuurentTimeLabel)
         self.addSubview(videoLengthLabel)
         self.addSubview(videoSlider)
         avplayerView.snp.makeConstraints { (make) in
             make.top.left.equalTo(self)
             make.bottom.right.equalTo(self)
+        }
+        
+        cuurentTimeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(self).offset(20)
+            make.bottom.equalTo(self).offset(-44)
+            make.width.equalTo(60)
+            make.height.equalTo(24)
         }
         
         videoLengthLabel.snp.makeConstraints { (make) in
@@ -196,9 +215,10 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
             make.height.equalTo(24)
         }
         
+        
         videoSlider.snp.makeConstraints { (make) in
             make.bottom.equalTo(self).offset(-44)
-            make.left.equalTo(self)
+            make.left.equalTo(cuurentTimeLabel.snp.right)
             make.right.equalTo(videoLengthLabel.snp.left)
             make.height.equalTo(30)
         }
@@ -208,6 +228,11 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
     //代理方法
     func onProgressUpdate(secondsText:Int,minutesText:String) {
         videoLengthLabel.text = "\(minutesText):\(secondsText)"
+    }
+    func onProgressInterval(currentLableText: String, sliderValue: Float) {
+        
+        self.cuurentTimeLabel.text = currentLableText
+        self.videoSlider.value = sliderValue
     }
     
 //    override func prepareForReuse(){
@@ -225,6 +250,7 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
 
 protocol AVPlayerViewDelegate {
     func onProgressUpdate(secondsText:Int,minutesText:String)
+    func onProgressInterval(currentLableText:String,sliderValue:Float)
 }
 
 class AVPlayerView: UIView{
@@ -266,6 +292,24 @@ class AVPlayerView: UIView{
            player = AVPlayer(url: URL(fileURLWithPath:path))
            playerLayer?.player = player
            player?.addObserver(self, forKeyPath: "currentItem.loadedTimeRanges", options: .new, context: nil)
+           let interval = CMTime(value: 1, timescale: 2)
+        player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
+            let seconds = CMTimeGetSeconds(progressTime)
+            let secondsString = String(format: "%02d", Int(seconds) % 60)
+            let minutesString = String(format: "%02d", Int(seconds) / 60)
+            
+            let currentLabelText = "\(minutesString):\(secondsString)"
+            
+            if let duration = self.player?.currentItem?.duration{
+                
+                let durationSeconds = CMTimeGetSeconds(duration)
+                let videoSliderText = Float(seconds/durationSeconds)
+                self.delegate?.onProgressInterval(currentLableText: currentLabelText, sliderValue: videoSliderText)
+                
+            }
+            
+            
+        })
        }
    
        func setUp(){
