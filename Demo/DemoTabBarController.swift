@@ -16,6 +16,8 @@ class DemoTabBarController: UITabBarController {
         // Do any additional setup after loading the view.
         
         setUpTabBar(HomeViewController(),"首页", "home", "home_high")
+        setUpTabBar(LiveViewController(), "Live", "live", "live_height")
+
         setUpTabBar(MyViewController(), "我的","my", "my_high")
         
         /* 还原icon原色方法：*/

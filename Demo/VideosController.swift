@@ -93,6 +93,8 @@ class VideosController: UIViewController,UICollectionViewDelegate,UICollectionVi
 //        cell.imagSrc = images[indexPath.row]
 //        print("111",indexPath.row)
         cell.vido_url = vidos[indexPath.row]
+        cell.playButton.isHidden =  cell.vido_url == nil
+        
         return cell
     }
     
@@ -106,10 +108,12 @@ class VideosController: UIViewController,UICollectionViewDelegate,UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as? vieosCell)?.avplayerView.player?.play()
+        (cell as? vieosCell)?.playButton.setImage(UIImage.init(named: "pause"), for: UIControl.State.normal)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         (cell as? vieosCell)?.avplayerView.player?.pause()
+        (cell as? vieosCell)?.playButton.setImage(UIImage.init(named: "play"), for: UIControl.State.normal)
     }
 
     
@@ -150,10 +154,24 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
     }()
     
     
+    lazy var playButton : UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage.init(named: "pause"), for: UIControl.State.normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+
+        btn.tintColor = UIColor.white
+//        btn.isHidden = true
+        btn.addTarget(self, action: #selector(handleButtonClick), for: UIControl.Event.touchUpInside)
+        return btn
+    }()
+    
+    
+    var isPlay = false
+    
     lazy var videoSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.addTarget(self, action: #selector(hnadleSliderChange), for: .valueChanged)
+        slider.addTarget(self, action: #selector(handleSliderChange), for: .valueChanged)
         return slider
     }()
     
@@ -176,7 +194,20 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
         setUp()
     }
     
-   @objc func hnadleSliderChange(){
+    
+    @objc func handleButtonClick(){
+        if isPlay{
+            avplayerView.player?.pause()
+            self.playButton.setImage(UIImage.init(named: "play"), for: UIControl.State.normal)
+        }else{
+            avplayerView.player?.play()
+            self.playButton.setImage(UIImage.init(named: "pause"), for: UIControl.State.normal)
+        }
+        
+        isPlay = !isPlay
+    }
+    
+   @objc func handleSliderChange(){
     if let duration = avplayerView.player?.currentItem?.duration {
         let totalSeconds = CMTimeGetSeconds(duration)
         let value = Float64(videoSlider.value) * totalSeconds
@@ -196,6 +227,9 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
         self.addSubview(cuurentTimeLabel)
         self.addSubview(videoLengthLabel)
         self.addSubview(videoSlider)
+        self.addSubview(playButton)
+        
+        
         avplayerView.snp.makeConstraints { (make) in
             make.top.left.equalTo(self)
             make.bottom.right.equalTo(self)
@@ -223,11 +257,18 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
             make.height.equalTo(30)
         }
         
+        playButton.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+        
         
     }
     //代理方法
-    func onProgressUpdate(secondsText:Int,minutesText:String) {
+    func onProgressUpdate(secondsText:Int,minutesText:String, btnIsHdden: Bool) {
         videoLengthLabel.text = "\(minutesText):\(secondsText)"
+        self.playButton.isHidden = btnIsHdden
+        self.isPlay = true
     }
     func onProgressInterval(currentLableText: String, sliderValue: Float) {
         
@@ -249,7 +290,7 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
 
 
 protocol AVPlayerViewDelegate {
-    func onProgressUpdate(secondsText:Int,minutesText:String)
+    func onProgressUpdate(secondsText:Int,minutesText:String,btnIsHdden:Bool)
     func onProgressInterval(currentLableText:String,sliderValue:Float)
 }
 
@@ -328,7 +369,7 @@ class AVPlayerView: UIView{
             }
             let secondsText = Int(seconds) % 60
             let minutesText = String.init(format: "%02d", Int(seconds) / 60)
-            delegate?.onProgressUpdate(secondsText:secondsText, minutesText: minutesText)
+            delegate?.onProgressUpdate(secondsText:secondsText, minutesText: minutesText, btnIsHdden: false)
         }
        
        }
