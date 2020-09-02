@@ -237,13 +237,13 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
         
         cuurentTimeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self).offset(20)
-            make.bottom.equalTo(self).offset(-44)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
             make.width.equalTo(60)
             make.height.equalTo(24)
         }
         
         videoLengthLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-44)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
             make.right.equalTo(self).offset(-20)
             make.width.equalTo(60)
             make.height.equalTo(24)
@@ -251,7 +251,7 @@ class vieosCell: UICollectionViewCell, AVPlayerViewDelegate {
         
         
         videoSlider.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self).offset(-44)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
             make.left.equalTo(cuurentTimeLabel.snp.right)
             make.right.equalTo(videoLengthLabel.snp.left)
             make.height.equalTo(30)

@@ -20,6 +20,11 @@
 		26559E1D24F5117600A53279 /* v2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 26559E1C24F5117600A53279 /* v2.mp4 */; };
 		2668444D8E5AFFDE6A6ED2F0 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5569CB6E268F406D35D9D0 /* Pods_Demo.framework */; };
 		268082ED24F5F1A400805066 /* v3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 268082EC24F5F1A400805066 /* v3.mp4 */; };
+		26B8323E24FF62BF0006213F /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B8323D24FF62BF0006213F /* test.swift */; };
+		26B8324024FF793C0006213F /* RequesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B8323F24FF793C0006213F /* RequesViewController.swift */; };
+		26B8324224FF7EB10006213F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B8324124FF7EB10006213F /* Post.swift */; };
+		26B8324424FF8AF80006213F /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B8324324FF8AF80006213F /* Photo.swift */; };
+		26B8324624FF8DBA0006213F /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B8324524FF8DBA0006213F /* UIImageViewExtension.swift */; };
 		26D8CBE424FDF7C20020A4FF /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D8CBE324FDF7C20020A4FF /* LiveViewController.swift */; };
 		26D8CBE624FDFE7E0020A4FF /* CustomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D8CBE524FDFE7E0020A4FF /* CustomLayout.swift */; };
 /* End PBXBuildFile section */
@@ -39,6 +44,11 @@
 		26559E1624F4E53300A53279 /* v1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v1.mp4; sourceTree = "<group>"; };
 		26559E1C24F5117600A53279 /* v2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v2.mp4; sourceTree = "<group>"; };
 		268082EC24F5F1A400805066 /* v3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = v3.mp4; sourceTree = "<group>"; };
+		26B8323D24FF62BF0006213F /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		26B8323F24FF793C0006213F /* RequesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequesViewController.swift; sourceTree = "<group>"; };
+		26B8324124FF7EB10006213F /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		26B8324324FF8AF80006213F /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		26B8324524FF8DBA0006213F /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		26D8CBE324FDF7C20020A4FF /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
 		26D8CBE524FDFE7E0020A4FF /* CustomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayout.swift; sourceTree = "<group>"; };
 		3CE142D9BE90B2157C9CBBF1 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,8 +119,13 @@
 				2652E85B24EFAAAF006515AD /* Assets.xcassets */,
 				2652E85D24EFAAAF006515AD /* LaunchScreen.storyboard */,
 				2652E86024EFAAAF006515AD /* Info.plist */,
+				26B8323D24FF62BF0006213F /* test.swift */,
 				26D8CBE324FDF7C20020A4FF /* LiveViewController.swift */,
+				26B8324524FF8DBA0006213F /* UIImageViewExtension.swift */,
+				26B8324324FF8AF80006213F /* Photo.swift */,
 				26D8CBE524FDFE7E0020A4FF /* CustomLayout.swift */,
+				26B8323F24FF793C0006213F /* RequesViewController.swift */,
+				26B8324124FF7EB10006213F /* Post.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -235,8 +250,13 @@
 				26D8CBE624FDFE7E0020A4FF /* CustomLayout.swift in Sources */,
 				2652E86B24EFACBF006515AD /* DemoTabBarController.swift in Sources */,
 				2652E85324EFAAAE006515AD /* AppDelegate.swift in Sources */,
+				26B8324224FF7EB10006213F /* Post.swift in Sources */,
+				26B8323E24FF62BF0006213F /* test.swift in Sources */,
 				26D8CBE424FDF7C20020A4FF /* LiveViewController.swift in Sources */,
 				2652E85524EFAAAE006515AD /* SceneDelegate.swift in Sources */,
+				26B8324424FF8AF80006213F /* Photo.swift in Sources */,
+				26B8324624FF8DBA0006213F /* UIImageViewExtension.swift in Sources */,
+				26B8324024FF793C0006213F /* RequesViewController.swift in Sources */,
 				2652E86D24EFACEB006515AD /* DemoNavigationController.swift in Sources */,
 				2652E86924EFAC94006515AD /* MyViewController.swift in Sources */,
 				2652E86724EFAC88006515AD /* HomeViewController.swift in Sources */,
